@@ -588,6 +588,11 @@ class PartnerListController extends Controller
         $weopen_oldlist=null;
         $theyopen_oldlist=null;
         $oldlist=null;
+        $predate=date('Y-m-d', strtotime($d1 . ' - 1 days'));
+        $last_trandate_usd=$predate;
+        $last_trandate_thb=$predate;
+        $last_trandate_khr=$predate;
+        $last_trandate_vnd=$predate;
         $weopen=PartnerTotalList::where('viewby',Auth::user()->name)->where('total','<',0)->get();
         if($request->alldate=='true'){
           $weopen_records=PartnerTotalList::where('viewby',Auth::user()->name)->where('total','<',0)->orderBy('dd')->orderBy('ttint')->get();
