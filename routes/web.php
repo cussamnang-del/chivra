@@ -22,16 +22,12 @@ Route::post('/facebook/webhook', [FacebookWebhookController::class, 'receive']);
 
 Route::get('/facerecognit', [CaptureController::class, 'index'])->name('exchange.recognit');          // webcam page
 
-Route::post('/capture', [CaptureController::class, 'store'])
-     ->name('customer.capture');
-Route::get('/captures', function () {
-    $caps = CustomerExchangeCapture::latest()->take(50)->get();
-    return view('captures', compact('caps'));
+Route::middleware('auth')->group(function () {
+    Route::post('/capture', [CaptureController::class, 'store'])->name('customer.capture');
+    Route::post('/track-time', [App\Http\Controllers\TrackController::class, 'time'])->name('track.time');
+    Route::post('/user-offline', [App\Http\Controllers\TrackController::class, 'offline'])->name('user.offline');
+    Route::post('/send-sms', [SMSController::class, 'sendSmsToTelegram'])->name('send.sms');
 });
-Route::post('/track-time', [App\Http\Controllers\TrackController::class, 'time'])->name('track.time');
-Route::post('/user-offline', [App\Http\Controllers\TrackController::class, 'offline'])->name('user.offline');
-
-Route::post('/send-sms', [SMSController::class, 'sendSmsToTelegram']);
 //Auth::routes();
 Route::group(['middleware'=>['prevent-back-history']],function(){});
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -118,7 +114,6 @@ Route::group(['middleware'=>['auth']],function(){
 	Route::post('/deleteuserpermission', [App\Http\Controllers\CustomAuth\LoginController::class,'deleteuserpermission'])->name('deleteuserpermission');
 	Route::get('/register', [App\Http\Controllers\CustomAuth\LoginController::class,'create'])->name('userregister');
 	Route::post('/register', [App\Http\Controllers\CustomAuth\LoginController::class,'store']);
-    Route::get('/user/verifyEmailFirst', [App\Http\Controllers\CustomAuth\LoginController::class,'verifyEmailFirst'])->name('verifyEmailFirst');
 	Route::post('/saveapplyright', [App\Http\Controllers\CustomAuth\LoginController::class,'saveapplyright'])->name('saveapplyright');
 	Route::get('/applyright', [App\Http\Controllers\CustomAuth\LoginController::class,'applyright'])->name('applyright');
     Route::group(['prefix'=>'user'],function(){
@@ -129,7 +124,6 @@ Route::group(['middleware'=>['auth']],function(){
         Route::get('/change-password', [App\Http\Controllers\CustomAuth\LoginController::class,'changepassword'])->name('changepwd');
         Route::post('/change-password', [App\Http\Controllers\CustomAuth\LoginController::class,'storepwd'])->name('change.password');
         Route::post('/reset-password', [App\Http\Controllers\CustomAuth\LoginController::class,'resetpassword'])->name('resetpwd');
-        Route::post('/saveuser_right', [App\Http\Controllers\CustomAuth\LoginController::class,'saveuser_right'])->name('saveuser_right');
         Route::get('/switchstatus', [App\Http\Controllers\CustomAuth\LoginController::class,'switchstatus'])->name('switchstatus');
         Route::get('/switchblock', [App\Http\Controllers\CustomAuth\LoginController::class,'switchblock'])->name('switchblock');
     });
@@ -454,7 +448,6 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/moneytransfer/cashdrawreport', [App\Http\Controllers\MoneyTransferController::class,'cashdrawreport'])->name('moneytransfer.cashdrawreport');
     Route::get('/moneytransfer/cashdrawreport/report', [App\Http\Controllers\MoneyTransferController::class,'cashdrawreport'])->name('moneytransfer.cashdrawreportreport');
 
-    Route::get('/moneytransfer/continuecashdraw', [App\Http\Controllers\MoneyTransferController::class,'continuecashdraw'])->name('moneytransfer.continuecashdraw');
     Route::post('/moneytransfer/savecashdraw', [App\Http\Controllers\MoneyTransferController::class,'savecashdraw'])->name('moneytransfer.savecashdraw');
     Route::post('/moneytransfer/savebankcontinue', [App\Http\Controllers\MoneyTransferController::class,'savebankcontinue'])->name('moneytransfer.savebankcontinue');
     Route::get('/moneytransfer/searchcashdraw', [App\Http\Controllers\MoneyTransferController::class,'searchcashdraw'])->name('moneytransfer.searchcashdraw');
@@ -480,7 +473,6 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/thaicashdraw/showgroupid', [App\Http\Controllers\ThaiController::class,'showgroupid'])->name('thaicashdraw.showgroupid');
     Route::get('/thaicashdraw/deletegroupid', [App\Http\Controllers\ThaiController::class,'deletegroupid'])->name('thaicashdraw.deletegroupid');
     Route::get('/thaicashdraw/updatestep', [App\Http\Controllers\ThaiController::class,'updatestep'])->name('thaicashdraw.updatestep');
-    Route::get('/thaicashdraw/updatemissioncomplete', [App\Http\Controllers\ThaiController::class,'mission_ready'])->name('thaicashdraw.mission_ready');
     Route::get('/thaicashdraw/getpartnerbalancebycur', [App\Http\Controllers\ThaiController::class,'getpartnerbalancebycur'])->name('thaicashdraw.getpartnerbalancebycur');
     Route::post('/thaicashdraw/updatesmsnote', [App\Http\Controllers\ThaiController::class,'updatesmsnote'])->name('thaicashdraw.updatesmsnote');
 
@@ -488,7 +480,6 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/thaicashdraw/notyetcashdrawreport', [App\Http\Controllers\ThaiController::class,'notyetcashdrawreport'])->name('thaicashdraw.notyetcashdrawreport');
 
     Route::get('/thaicashdraw/cashdrawreport', [App\Http\Controllers\ThaiController::class,'cashdrawreport'])->name('thaicashdraw.cashdrawreport');
-    Route::get('/thaicashdraw/continuecashdraw', [App\Http\Controllers\ThaiController::class,'continuecashdraw'])->name('thaicashdraw.continuecashdraw');
     Route::post('/thaicashdraw/savecashdraw', [App\Http\Controllers\ThaiController::class,'savecashdraw'])->name('thaicashdraw.savecashdraw');
     Route::post('/thaicashdraw/savemultiimage', [App\Http\Controllers\ThaiController::class,'savemultiimage'])->name('thaicashdraw.savemultiimage');
 
