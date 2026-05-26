@@ -4,6 +4,7 @@ namespace App;
 
 use App\Models\AgentType;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class PartnerTransfer extends Model
@@ -51,7 +52,8 @@ class PartnerTransfer extends Model
     {
         return $this->belongsTo('App\Customer','from_partner_id')->withDefault(['name'=>'']);
     }
-    public function currency()
+    /** @return BelongsTo<\App\Currency, $this> */
+    public function currency(): BelongsTo
     {
     	return $this->belongsTo('App\Currency')->withDefault(['shortcut' =>'']);
     }

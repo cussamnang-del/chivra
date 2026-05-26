@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Exchange extends Model
 {
-    public function currency()
+    /** @return BelongsTo<\App\Currency, $this> */
+    public function currency(): BelongsTo
     {
     	return $this->belongsTo('App\Currency');
     }

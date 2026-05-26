@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Property extends Model
 {
@@ -16,7 +17,8 @@ class Property extends Model
     {
     	return $this->belongsTo('App\User');
     }
-    public function currency()
+    /** @return BelongsTo<\App\Currency, $this> */
+    public function currency(): BelongsTo
     {
     	return $this->belongsTo('App\Currency')->withDefault(['shortcut' =>'']);
     }

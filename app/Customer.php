@@ -4,14 +4,17 @@ namespace App;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Customer extends Model
 {
-    public function agenttype()
+    /** @return BelongsTo<\App\Models\AgentType, $this> */
+    public function agenttype(): BelongsTo
     {
         return $this->belongsTo('App\Models\AgentType','agent_type_id')->withDefault(['name' =>'']);
     }
-    public function province()
+    /** @return BelongsTo<\App\Address, $this> */
+    public function province(): BelongsTo
     {
         return $this->belongsTo('App\Address')->withDefault(['name' =>'']);
     }

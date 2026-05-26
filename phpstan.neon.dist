@@ -6,6 +6,7 @@ parameters:
         - app
         - routes
     level: 0
+    reportUnmatchedIgnoredErrors: false
     ignoreErrors:
         - '#PHPDoc tag @var#'
     excludePaths:
