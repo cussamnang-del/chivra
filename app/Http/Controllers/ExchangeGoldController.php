@@ -289,6 +289,12 @@ class ExchangeGoldController extends Controller
     }
     public function updateBuySaleGoldPL($cur_id, $buy, $sale, $ratebuy, $ratesale)
     {
+        $cur_id   = (int) $cur_id;
+        $buy      = (float) $buy;
+        $sale     = (float) $sale;
+        $ratebuy  = (float) $ratebuy;
+        $ratesale = (float) $ratesale;
+
         DB::beginTransaction();
 
         try {
