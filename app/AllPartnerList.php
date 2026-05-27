@@ -18,14 +18,14 @@ class AllPartnerList extends Model
         $s=$c->optsign;
         if($total>0){
             $r=$c->ratebuy;
-            if($c->optsign='/'){
+            if($c->optsign=='/'){
                 $x=$total/$c->ratebuy;
             }else{
                 $x=$total*$c->ratebuy;
             }
         }else{
             $r=$c->ratesale;
-            if($c->optsign='/'){
+            if($c->optsign=='/'){
                 $x=$total/$c->ratesale;
             }else{
                 $x=$total*$c->ratesale;

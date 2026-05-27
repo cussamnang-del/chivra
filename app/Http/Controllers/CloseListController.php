@@ -91,10 +91,10 @@ class CloseListController extends Controller
             }elseif($uc->cur=='KHR'){
                 $khr=$uc->balance;
                 $khr_usd=$this->exchangetousd('KHR',$khr,$rate_khr);
-            }elseif($uc->cur='THB'){
+            }elseif($uc->cur=='THB'){
                 $thb=$uc->balance;
                 $thb_usd=$this->exchangetousd('THB',$thb,$rate_thb);
-            }elseif($uc->cur='VND'){
+            }elseif($uc->cur=='VND'){
               $vnd=$uc->balance;
               $vnd_usd=$this->exchangetousd('VND',$vnd,$rate_vnd);
             }
@@ -146,10 +146,10 @@ class CloseListController extends Controller
             }elseif($e->currency->shortcut=='KHR'){
                 $khr=$e->tamt;
                 $khr_usd=$this->exchangetousd('KHR',$khr,$rate_khr);
-            }elseif($e->currency->shortcut='THB'){
+            }elseif($e->currency->shortcut=='THB'){
                 $thb=$e->tamt;
                 $thb_usd=$this->exchangetousd('THB',$thb,$rate_thb);
-            }elseif($e->currency->shortcut='VND'){
+            }elseif($e->currency->shortcut=='VND'){
               $vnd=$e->tamt;
               $vnd_usd=$this->exchangetousd('VND',$vnd,$rate_vnd);
             }
@@ -170,10 +170,10 @@ class CloseListController extends Controller
             }elseif($e->currency->shortcut=='KHR'){
                 $khr=$e->tamt;
                 $khr_usd=$this->exchangetousd('KHR',$khr,$rate_khr);
-            }elseif($e->currency->shortcut='THB'){
+            }elseif($e->currency->shortcut=='THB'){
                 $thb=$e->tamt;
                 $thb_usd=$this->exchangetousd('THB',$thb,$rate_thb);
-            }elseif($e->currency->shortcut='VND'){
+            }elseif($e->currency->shortcut=='VND'){
               $vnd=$e->tamt;
               $vnd_usd=$this->exchangetousd('VND',$vnd,$rate_vnd);
             }

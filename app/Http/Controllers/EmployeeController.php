@@ -12,17 +12,20 @@ class EmployeeController extends Controller
     }
     public function getCountries(Request $request)
     {
-        $name=$request->get('name');
-        $fieldName=$request->get('fieldName');
-        $name=strtolower(trim($name));
-        if(empty($fieldName)){
-            $fieldName='name';
+        $name = strtolower(trim((string) $request->get('name')));
+        $fieldName = $request->get('fieldName');
+
+        $allowedFields = ['name', 'username', 'email'];
+        if (empty($fieldName) || !in_array($fieldName, $allowedFields, true)) {
+            $fieldName = 'name';
         }
-        $countries=DB::table('users')
-        ->select('users.*')
-        ->where(`LOWER(`.$fieldName.`)`,'LIKE',"$name%")
-        ->limit(25)
-        ->get();
+
+        $countries = DB::table('users')
+            ->select('users.*')
+            ->whereRaw('LOWER('.$fieldName.') LIKE ?', [$name.'%'])
+            ->limit(25)
+            ->get();
+
         return $countries;
     }
 }

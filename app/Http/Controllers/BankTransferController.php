@@ -80,7 +80,7 @@ class BankTransferController extends Controller
                 }elseif($bd->cur=='KHR'){
                     $khr=$bd->balance;
                     
-                }elseif($bd->cur='THB'){
+                }elseif($bd->cur=='THB'){
                     $thb=$bd->balance;
                    
                 }
@@ -114,7 +114,7 @@ class BankTransferController extends Controller
         $ratebuy=$r->ratebuy;
         $ratesale=$r->ratesale;
         $opsign=$r->optsign;
-        if($opsign='/'){
+        if($opsign=='/'){
             if($amt>0){
                 $inusd=$amt / $ratebuy;
             }else{
